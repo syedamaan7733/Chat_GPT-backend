@@ -13,6 +13,10 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cors());
 
+app.get("/", (req, res) => {
+  rex.send(`<h1>Ginues are made not born </h1>`);
+});
+
 // Define the route to fetch CoinMarketCap data
 app.get("/get-coinmarket-data", async (req, res) => {
   const url =
