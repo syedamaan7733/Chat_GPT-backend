@@ -17,6 +17,23 @@ app.get("/", (req, res) => {
   res.send(`<h1>Ginues are made not born </h1>`);
 });
 
+app.get("/get-percent-data", async (req, res) => {
+  try {
+    const response = await axios.get(
+      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=8b82a88b-dbda-4ed4-8ed8-db3121818283&start=1&limit=100&convert=USD"
+    );
+    res.status(200).json({ data: response.data });
+  } catch (error) {
+    // Handle errors
+    console.error("Error fetching data:", error.message);
+    if (error.response) {
+      res.status(error.response.status).json({ error: error.response.data });
+    } else {
+      res.status(500).json({ error: "Something went wrong" });
+    }
+  }
+});
+
 // Define the route to fetch CoinMarketCap data
 app.get("/get-coinmarket-data", async (req, res) => {
   const url =
